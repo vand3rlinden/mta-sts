@@ -37,7 +37,7 @@ max_age: 604800
 5. Once your custom domain is set up, GitHub will begin the process of issuing an SSL certificate using Let's Encrypt. This process typically takes around 15 minutes but can take up to 24 hours. Once the certificate is issued, the _Enforce HTTPS_ checkbox will be clickable. Please enable this setting if you are allowed to do so. After enabling this setting, the policy is deployed. You can verify this by navigating to:
 `https://mta-sts.example.com/.well-known/mta-sts.txt` - you should see the policy, and it should have loaded over `HTTPS`.
 
-### Detailed Explanation of the Policy File
+## Detailed Explanation of the Policy File
 - `version: STSv1`: Indicates the version of the MTA-STS policy.
 - `mode: enforce`: Specifies that the policy should be strictly enforced. Other modes are `testing` (send report only) and `none` (do nothing).
 - `mx`: Lists each of the MX servers that handle email for your domain. If needed, wildcards are allowd, such as `*.j-v1.mx.microsoft`
@@ -45,9 +45,18 @@ max_age: 604800
 
 In the `mta-sts.txt` file, you should list all MX servers that are used for receiving emails for your domain and that support TLS. This ensures that sending MTAs know which servers to establish secure connections with when delivering emails to your domain.
 
-### Recommendations
+## Recommendations
 - **Start with Testing Mode**: It’s advisable to start with the `testing` mode. This allows you to monitor and log the results without affecting email delivery. It helps you ensure that your MX servers are correctly configured to support TLS before enforcing the policy.
 - **Transition to Enforce Mode**: Once you are confident that your MX servers support TLS and that email can be securely delivered, you can switch to `enforce` mode to enhance your email security.
+- **Activate TLS Reporting (TLSRPT)**: TLSRPT records are DNS `TXT` records that specify how to report issues with TLS encryption for SMTP. When an email server experiences issues delivering emails securely to another server, it can refer to the TLSRPT record to know where to send the report of the problem.
+
+## Implementation of TLSRPT
+1. Log in to your DNS hosting provider's management console.
+2. Add a new TXT record with the following details:
+
+| Host                        | Type | Value                                         |
+| ----                        | ---  | ---                                           |
+| `_smtp._tls.yourdomain.com` | `TXT`| `v=TLSRPTv1; rua=mailto:tlsrpt@yourdomain.com`|
 
 ## In summary
 MTA-STS is a powerful tool for enhancing email security by ensuring the use of encryption for email in transit, thereby protecting against various types of attacks.
