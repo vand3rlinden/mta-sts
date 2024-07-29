@@ -56,7 +56,7 @@ In the `mta-sts.txt` file, you should list all MX servers that are used for rece
 
 | Host                        | Type | Value                                         |
 | ----                        | ---  | ---                                           |
-| `_smtp._tls.yourdomain.com` | `TXT`| `v=TLSRPTv1; rua=mailto:tlsrpt@yourdomain.com`|
+| `_smtp._tls.example.com` | `TXT`| `v=TLSRPTv1; rua=mailto:tlsrpt@example.com`      |
 
 ## In summary
 MTA-STS is a powerful tool for enhancing email security by ensuring the use of encryption for email in transit, thereby protecting against various types of attacks.
