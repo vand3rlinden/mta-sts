@@ -1,6 +1,19 @@
 # MTA-STS
 MTA-STS (Mail Transfer Agent Strict Transport Security) is a security protocol designed to improve the security of email communication by enforcing the use of TLS (Transport Layer Security) to encrypt email traffic between mail servers. It helps prevent man-in-the-middle attacks and downgrade attacks, where an attacker could intercept or tamper with email messages in transit.
 
+## How MTA-STS Works
+1. **Discovery**:
+   - When a sending mail server (MTA) wants to deliver an email to a domain, it first checks for the presence of the `_mta-sts.example.com` DNS TXT record.
+   - If the record exists, the sending server retrieves the policy file from `https://mta-sts.example.com/mta-sts.txt`.
+
+2. **Policy Evaluation**:
+   - The sending server reads the policy file and checks the mode (enforce, testing, or none).
+   - If the mode is "enforce," the sending server must use TLS and verify the certificate of the receiving server.
+
+3. **TLS Enforcement**:
+   - The sending server attempts to establish a TLS connection with the receiving server.
+   - If the connection cannot be established securely according to the policy, the sending server may defer delivery and try again later.
+
 ##  Implement an MTA-STS policy for a domain
 ### Adding the DNS TXT Record for the MTA STS Policy
 This `TXT` record is placed at `_mta-sts.example.com` and signals the presence of an MTA-STS policy.
@@ -57,6 +70,10 @@ In the `mta-sts.txt` file, you should list all MX servers that are used for rece
 | Host                        | Type | Value                                         |
 | ----                        | ---  | ---                                           |
 | `_smtp._tls.example.com` | `TXT`| `v=TLSRPTv1; rua=mailto:tlsrpt@example.com`      |
+
+## Reference
+- [MTA-STS validator](https://www.mailhardener.com/tools/mta-sts-validator)
+- [TLS-RPT Record Checker](https://easydmarc.com/tools/tls-rpt-check)
 
 ## In summary
 MTA-STS is a powerful tool for enhancing email security by ensuring the use of encryption for email in transit, thereby protecting against various types of attacks.
