@@ -74,6 +74,3 @@ In the `mta-sts.txt` file, you should list all MX servers that are used for rece
 ## Reference
 - [MTA-STS validator](https://www.mailhardener.com/tools/mta-sts-validator)
 - [TLS-RPT Record Checker](https://easydmarc.com/tools/tls-rpt-check)
-
-## In summary
-MTA-STS is a powerful tool for enhancing email security by ensuring the use of encryption for email in transit, thereby protecting against various types of attacks.
