@@ -14,6 +14,24 @@ MTA-STS (Mail Transfer Agent Strict Transport Security) is a security protocol d
    - The sending server attempts to establish a TLS connection with the receiving server.
    - If the connection cannot be established securely according to the policy, the sending server may defer delivery and try again later.
 
+## MTA-STS benefits:
+- Emails are transfered over a secure TLS connection
+- Must use TLS-Version 1.2 or higher
+- For the TLS Certificates they need to:
+  - Certificate Subject needs to match the MX-Entry
+  - They need to be signed and issued by a public trusthworthy CA
+  - They need to be valid (valid from / valid until)
+
+## MTA-STS protects against:
+- Downgrade-Attacks to lower TLS Versions
+- Man-In-The-Middle (MITM) Attacks
+- Solves multiple SMTP-Security Issues, including expired TLS certificates and lack of support for secure protocols.
+
+## MTA-STS consists of:
+- MTA STS DNS TXT Record (`_mta-sts.example.com`)
+- MTA-STS Policy (`https://mta-sts.example.com/.well-known/mta-sts.txt`)
+- SMTP TLS Reporting DNS TXT Record (`_smtp._tls.example.com`)
+
 ##  Implement an MTA-STS policy for a domain
 ### Adding the DNS TXT Record for the MTA STS Policy
 This `TXT` record is placed at `_mta-sts.example.com` and signals the presence of an MTA-STS policy.
@@ -67,9 +85,9 @@ In the `mta-sts.txt` file, you should list all MX servers that are used for rece
 1. Log in to your DNS hosting provider's management console.
 2. Add a new TXT record with the following details:
 
-| Host                        | Type | Value                                         |
-| ----                        | ---  | ---                                           |
-| `_smtp._tls.example.com` | `TXT`| `v=TLSRPTv1; rua=mailto:tlsrpt@example.com`      |
+| Host                        | Type | Value                                   |
+| ----                        | ---  | ---                                     |
+| `_smtp._tls.example.com` | `TXT`| `v=TLSRPTv1; rua=mailto:tlsrpt@example.com`|
 
 ## Reference
 - [MTA-STS validator](https://www.mailhardener.com/tools/mta-sts-validator)
