@@ -90,7 +90,7 @@ In the `mta-sts.txt` file, you should list all MX servers that are used for rece
 | `_smtp._tls.example.com` | `TXT`| `v=TLSRPTv1; rua=mailto:tlsrpt@example.com`|
 
 ### TLSRPT report example
-Once the record is in place, your reporting endpoint (email address or web server) will start receiving reports about TLS issues encountered by other email servers when sending emails to your domain. Ensure that you regularly monitor and review these reports to address any security issues or misconfigurations promptly.
+Once the record is in place, your reporting endpoint will start receiving reports about TLS issues encountered by other email servers when sending emails to your domain. Ensure that you regularly monitor and review these reports to address any security issues or misconfigurations promptly.
 
 The reports are received in `.json`, you can look for the `summary` tag to check if the TLS connection was successful or failed:
 ```
