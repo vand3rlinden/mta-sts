@@ -89,6 +89,12 @@ In the `mta-sts.txt` file, you should list all MX servers that are used for rece
 | ----                        | ---  | ---                                     |
 | `_smtp._tls.example.com` | `TXT`| `v=TLSRPTv1; rua=mailto:tlsrpt@example.com`|
 
+### TLSRPT report example
+A TLSRPT report is sent by the receiving server to an email address specified by the sending domain in `.json`, within the `.json` you can look for the `summary` to check if the TLS connection was successful or failed:
+```
+"summary":{"total-successful-session-count":1,"total-failure-session-count":0}
+```
+
 ## Reference
 - [MTA-STS validator](https://www.mailhardener.com/tools/mta-sts-validator)
 - [TLS-RPT Record Checker](https://easydmarc.com/tools/tls-rpt-check)
