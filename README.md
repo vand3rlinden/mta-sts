@@ -97,6 +97,12 @@ The reports are received in `.json`, you can look for the `summary` tag to check
 "summary":{"total-successful-session-count":1,"total-failure-session-count":0}
 ```
 
+## MTA-STS vs. SMTP DANE
+Neither SMTP DANE nor MTA-STS is universally "better"; the choice depends on the specific context and needs of the organization. SMTP DANE provides stronger security, but requires DNSSEC, and not every DNS provider supports DNSSEC yet. MTA-STS, on the other hand, is easier to implement and provides good security through HTTPS and DNS. Using the two together can provide the best of both worlds, increasing security through a layered approach.
+
+## SPF, DKIM and DMARC vs. MTA-STS
+While SPF, DKIM, and DMARC focus more on the email messages and the sending hosts they come from, MTA-STS focuses more on establishing the TLS connection between mail servers.
+
 ## Reference
 - [MTA-STS validator](https://www.mailhardener.com/tools/mta-sts-validator)
 - [TLS-RPT Record Checker](https://easydmarc.com/tools/tls-rpt-check)
